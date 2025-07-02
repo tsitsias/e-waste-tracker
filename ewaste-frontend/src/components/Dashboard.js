@@ -8,6 +8,8 @@ import ProcessDevice from './ProcessDevice';
 const Dashboard = ({ contract, account, userRole, setUserRole }) => {
   const [activeTab, setActiveTab] = useState('devices');
   const [devices, setDevices] = useState([]);
+  const [registerAddress, setRegisterAddress] = useState('');
+  const [registerRole, setRegisterRole] = useState('2');
 
   const roles = {
     0: 'None',
@@ -19,7 +21,25 @@ const Dashboard = ({ contract, account, userRole, setUserRole }) => {
     6: 'Auditor'
   };
 
-  // Register user with a role
+  // Register user with a role (Admin only)
+  const registerUserByAdmin = async () => {
+    if (!registerAddress) {
+      alert('Please enter an address');
+      return;
+    }
+    
+    try {
+      const tx = await contract.registerUser(registerAddress, parseInt(registerRole));
+      await tx.wait();
+      alert(`Successfully registered ${registerAddress} as ${roles[registerRole]}`);
+      setRegisterAddress('');
+    } catch (error) {
+      console.error('Error registering user:', error);
+      alert('Error registering user');
+    }
+  };
+
+  // Register user with a role (Self registration - only if user is not registered)
   const registerUser = async (role) => {
     try {
       const tx = await contract.registerUser(account, role);
@@ -97,6 +117,39 @@ const Dashboard = ({ contract, account, userRole, setUserRole }) => {
         return <TransferDevice contract={contract} account={account} onDeviceTransferred={refreshDevices} />;
       case 'process':
         return <ProcessDevice contract={contract} account={account} onDeviceProcessed={refreshDevices} />;
+      case 'register':
+        return (
+          <div className="admin-registration">
+            <h3>Register New User (Admin Only)</h3>
+            <div className="form-group">
+              <label>User Address:</label>
+              <input
+                type="text"
+                value={registerAddress}
+                onChange={(e) => setRegisterAddress(e.target.value)}
+                placeholder="0x..."
+                style={{ width: '100%', marginBottom: '10px' }}
+              />
+            </div>
+            <div className="form-group">
+              <label>Role:</label>
+              <select
+                value={registerRole}
+                onChange={(e) => setRegisterRole(e.target.value)}
+                style={{ width: '100%', marginBottom: '10px' }}
+              >
+                <option value="2">User</option>
+                <option value="3">GreenPoint</option>
+                <option value="4">Transporter</option>
+                <option value="5">Recycler</option>
+                <option value="6">Auditor</option>
+              </select>
+            </div>
+            <button onClick={registerUserByAdmin} className="submit-btn">
+              Register User
+            </button>
+          </div>
+        );
       case 'devices':
       default:
         return <DeviceList devices={devices} onRefresh={refreshDevices} />;
@@ -111,6 +164,7 @@ const Dashboard = ({ contract, account, userRole, setUserRole }) => {
         return [
           ...baseTabs,
           { key: 'add', label: 'Add Device' },
+          { key: 'register', label: 'Register Users' },
           { key: 'collect', label: 'Collect Device' },
           { key: 'transfer', label: 'Transfer Device' },
           { key: 'process', label: 'Process Device' }
