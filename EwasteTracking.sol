@@ -10,7 +10,7 @@ contract EwasteTracking {
     address public owner;
     uint256 public deviceCount;
 
-    enum Role { None, Admin, User, GreenPoint, Transporter, Recycler, Auditor }
+    enum Role { None, Admin, GreenPoint, Transporter, Recycler, Auditor }
     enum DeviceStatus { Registered, Collected, InTransit, Processed }
     enum DangerLevel { Low, Medium, High, Critical }
 
@@ -88,9 +88,8 @@ contract EwasteTracking {
         DangerLevel _dangerLevel
     ) public onlyRegistered {
         require(
-            users[msg.sender].role == Role.User || 
             users[msg.sender].role == Role.Admin,
-            "Only Users and Admins can add devices"
+            "Only Admin can add devices"
         );
 
         deviceCount++;
