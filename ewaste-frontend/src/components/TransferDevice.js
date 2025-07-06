@@ -13,6 +13,7 @@ const TransferDevice = ({ contract, account, onDeviceTransferred }) => {
       return;
     }
 
+    // Έλεγχος έγκυρης Ethereum διεύθυνσης
     if (!recyclerAddress.match(/^0x[a-fA-F0-9]{40}$/)) {
       alert('Please enter a valid Ethereum address');
       return;
@@ -32,7 +33,7 @@ const TransferDevice = ({ contract, account, onDeviceTransferred }) => {
         onDeviceTransferred();
       }
     } catch (error) {
-      console.error('Error transferring device:', error);
+      console.error('Σφάλμα μεταφοράς συσκευής:', error);
       alert('Error transferring device: ' + error.message);
     } finally {
       setLoading(false);

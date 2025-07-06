@@ -4,18 +4,21 @@ import './App.css';
 import Dashboard from './components/Dashboard';
 import contractABI from './contract/EwasteTracking.json';
 
+// Διεύθυνση του smart contract
 const CONTRACT_ADDRESS = "0x97F84C6b09b9f1fede0E5e05906aFa94450aafD7";
 
 function App() {
+  // Καταστάσεις της εφαρμογής
   const [account, setAccount] = useState('');
   const [contract, setContract] = useState(null);
   const [provider, setProvider] = useState(null);
   const [userRole, setUserRole] = useState('');
   const [isConnected, setIsConnected] = useState(false);
 
+  // Μετάφραση των ρόλων
   const roles = {
     0: 'None',
-    1: 'Admin', 
+    1: 'Admin',
     2: 'User',
     3: 'GreenPoint',
     4: 'Transporter',
@@ -23,7 +26,7 @@ function App() {
     6: 'Auditor'
   };
 
-  // Connect to MetaMask
+  // Σύνδεση με MetaMask
   const connectWallet = async () => {
     try {
       if (window.ethereum) {
@@ -31,7 +34,6 @@ function App() {
         await provider.send("eth_requestAccounts", []);
         const signer = await provider.getSigner();
         const address = await signer.getAddress();
-        
         const contract = new ethers.Contract(CONTRACT_ADDRESS, contractABI.abi, signer);
         
         setProvider(provider);
@@ -39,25 +41,25 @@ function App() {
         setContract(contract);
         setIsConnected(true);
         
-        // Get user role
+        // Παίρνουμε τον ρόλο του χρήστη
         try {
           const roleNumber = await contract.getUserRole(address);
           const roleName = roles[Number(roleNumber)] || 'None';
           setUserRole(roleName);
         } catch (error) {
-          console.log("User not registered or error getting role:", error);
+          console.log("Ο χρήστης δεν είναι εγγεγραμμένος:", error);
           setUserRole('Unregistered');
         }
       } else {
         alert('Please install MetaMask!');
       }
     } catch (error) {
-      console.error('Error connecting to wallet:', error);
+      console.error('Σφάλμα σύνδεσης:', error);
     }
   };
 
+  // Έλεγχος για υπάρχουσα σύνδεση
   useEffect(() => {
-    // Check if already connected
     if (window.ethereum) {
       window.ethereum.request({ method: 'eth_accounts' })
         .then(accounts => {

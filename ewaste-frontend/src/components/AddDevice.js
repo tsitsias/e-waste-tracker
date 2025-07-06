@@ -11,7 +11,7 @@ const AddDevice = ({ contract, account, onDeviceAdded }) => {
 
   const dangerLevels = {
     0: 'Low',
-    1: 'Medium', 
+    1: 'Medium',
     2: 'High',
     3: 'Critical'
   };
@@ -43,8 +43,9 @@ const AddDevice = ({ contract, account, onDeviceAdded }) => {
       );
       
       await tx.wait();
-      
       alert('Device added successfully!');
+      
+      // Καθαρισμός φόρμας
       setDeviceData({
         deviceType: '',
         brand: '',
@@ -56,7 +57,7 @@ const AddDevice = ({ contract, account, onDeviceAdded }) => {
         onDeviceAdded();
       }
     } catch (error) {
-      console.error('Error adding device:', error);
+      console.error('Σφάλμα προσθήκης συσκευής:', error);
       alert('Error adding device: ' + error.message);
     } finally {
       setLoading(false);

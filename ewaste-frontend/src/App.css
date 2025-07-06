@@ -1,9 +1,11 @@
+/* Container της εφαρμογής */
 .App {
   text-align: center;
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
+/* Header */
 .App-header {
   background-color: rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -17,6 +19,7 @@
   font-weight: 700;
 }
 
+/* Περιοχή σύνδεσης wallet */
 .connect-section {
   max-width: 400px;
   margin: 0 auto;
@@ -26,6 +29,7 @@
   backdrop-filter: blur(10px);
 }
 
+/* Κουμπί σύνδεσης */
 .connect-btn {
   background: #4CAF50;
   color: white;
@@ -39,9 +43,10 @@
 
 .connect-btn:hover {
   background: #45a049;
-  transform: translateY(-2px);
+  transform: translateY(-2px); /* Μικρό "άλμα" όταν κάνουμε hover */
 }
 
+/* Πληροφορίες wallet */
 .wallet-info {
   background: rgba(255, 255, 255, 0.1);
   padding: 15px;
@@ -55,7 +60,7 @@
   font-size: 1rem;
 }
 
-/* Dashboard Styles */
+/* Στυλ για το Dashboard */
 .dashboard {
   max-width: 1200px;
   margin: 0 auto;
@@ -73,6 +78,7 @@
   border-bottom: 2px solid #eee;
 }
 
+/* Κουμπί ανανέωσης */
 .refresh-btn {
   background: #2196F3;
   color: white;
@@ -87,7 +93,7 @@
   background: #1976D2;
 }
 
-/* Tabs */
+/* Καρτέλες navigation */
 .tabs {
   display: flex;
   border-bottom: 2px solid #eee;
@@ -114,7 +120,7 @@
   font-weight: bold;
 }
 
-/* Registration Buttons */
+/* Κουμπιά εγγραφής ρόλων */
 .registration-buttons {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -139,7 +145,7 @@
   transform: translateY(-2px);
 }
 
-/* Form Styles */
+/* Στυλ για forms */
 .form-group {
   margin-bottom: 20px;
   text-align: left;
@@ -168,6 +174,7 @@
   border-color: #667eea;
 }
 
+/* Κουμπί αποστολής */
 .submit-btn {
   background: #4CAF50;
   color: white;
@@ -188,7 +195,7 @@
   cursor: not-allowed;
 }
 
-/* Device List */
+/* Λίστα συσκευών */
 .devices-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -196,6 +203,7 @@
   margin-top: 20px;
 }
 
+/* Κάρτα συσκευής */
 .device-card {
   background: white;
   border: 1px solid #ddd;
@@ -206,7 +214,7 @@
 }
 
 .device-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px); /* Ανεβαίνει λίγο όταν κάνουμε hover */
 }
 
 .device-header {
@@ -218,6 +226,7 @@
   border-bottom: 1px solid #eee;
 }
 
+/* Badges για κατάσταση και κίνδυνο */
 .status-badge {
   padding: 5px 12px;
   border-radius: 15px;
@@ -240,6 +249,7 @@
   color: #333;
 }
 
+/* Διευθύνσεις Ethereum */
 .address {
   font-family: monospace;
   background: #f5f5f5;
@@ -249,6 +259,7 @@
   font-size: 0.8rem;
 }
 
+/* Περιοχή πληροφοριών */
 .info-section {
   background: #f9f9f9;
   padding: 20px;
@@ -271,6 +282,7 @@
   color: #666;
 }
 
+/* Μήνυμα όταν δεν υπάρχουν συσκευές */
 .no-devices {
   text-align: center;
   padding: 40px;

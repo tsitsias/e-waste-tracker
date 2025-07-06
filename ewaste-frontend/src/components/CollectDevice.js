@@ -25,7 +25,7 @@ const CollectDevice = ({ contract, account, onDeviceCollected }) => {
         onDeviceCollected();
       }
     } catch (error) {
-      console.error('Error collecting device:', error);
+      console.error('Σφάλμα συλλογής συσκευής:', error);
       alert('Error collecting device: ' + error.message);
     } finally {
       setLoading(false);

@@ -17,20 +17,20 @@ const DeviceList = ({ devices, onRefresh }) => {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 0: return '#ffa500'; // Orange
-      case 1: return '#2196f3'; // Blue
-      case 2: return '#ff9800'; // Amber
-      case 3: return '#4caf50'; // Green
+      case 0: return '#ffa500';
+      case 1: return '#2196f3';
+      case 2: return '#ff9800';
+      case 3: return '#4caf50';
       default: return '#666';
     }
   };
 
   const getDangerColor = (level) => {
     switch (level) {
-      case 0: return '#4caf50'; // Green
-      case 1: return '#ff9800'; // Orange
-      case 2: return '#f44336'; // Red
-      case 3: return '#9c27b0'; // Purple
+      case 0: return '#4caf50';
+      case 1: return '#ff9800';
+      case 2: return '#f44336';
+      case 3: return '#9c27b0';
       default: return '#666';
     }
   };

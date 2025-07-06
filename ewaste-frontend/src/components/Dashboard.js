@@ -13,7 +13,7 @@ const Dashboard = ({ contract, account, userRole, setUserRole }) => {
 
   const roles = {
     0: 'None',
-    1: 'Admin', 
+    1: 'Admin',
     2: 'User',
     3: 'GreenPoint',
     4: 'Transporter',
@@ -21,7 +21,7 @@ const Dashboard = ({ contract, account, userRole, setUserRole }) => {
     6: 'Auditor'
   };
 
-  // Register user with a role (Admin only)
+  // Εγγραφή χρήστη από Admin
   const registerUserByAdmin = async () => {
     if (!registerAddress) {
       alert('Please enter an address');
@@ -34,12 +34,12 @@ const Dashboard = ({ contract, account, userRole, setUserRole }) => {
       alert(`Successfully registered ${registerAddress} as ${roles[registerRole]}`);
       setRegisterAddress('');
     } catch (error) {
-      console.error('Error registering user:', error);
+      console.error('Σφάλμα εγγραφής χρήστη:', error);
       alert('Error registering user');
     }
   };
 
-  // Register user with a role (Self registration - only if user is not registered)
+  // Αυτο-εγγραφή χρήστη
   const registerUser = async (role) => {
     try {
       const tx = await contract.registerUser(account, role);
@@ -47,12 +47,12 @@ const Dashboard = ({ contract, account, userRole, setUserRole }) => {
       setUserRole(roles[role]);
       alert(`Successfully registered as ${roles[role]}`);
     } catch (error) {
-      console.error('Error registering user:', error);
+      console.error('Σφάλμα αυτο-εγγραφής:', error);
       alert('Error registering user');
     }
   };
 
-  // Refresh devices list
+  // Ανανέωση λίστας συσκευών
   const refreshDevices = async () => {
     try {
       const deviceCount = await contract.getDeviceCount();
@@ -75,22 +75,24 @@ const Dashboard = ({ contract, account, userRole, setUserRole }) => {
             timestamp: new Date(Number(device[9]) * 1000).toLocaleString()
           });
         } catch (error) {
-          console.log(`Error fetching device ${i}:`, error);
+          console.log(`Σφάλμα φόρτωσης συσκευής ${i}:`, error);
         }
       }
       
       setDevices(devicesList);
     } catch (error) {
-      console.error('Error refreshing devices:', error);
+      console.error('Σφάλμα ανανέωσης συσκευών:', error);
     }
   };
 
+  // Όταν φορτώνει το component, φέρνουμε τις συσκευές
   useEffect(() => {
     if (contract) {
       refreshDevices();
     }
   }, [contract]);
 
+  // Εμφάνιση επιλογών εγγραφής για μη εγγεγραμμένους χρήστες
   if (userRole === 'Unregistered' || userRole === 'None') {
     return (
       <div className="dashboard">
@@ -107,6 +109,7 @@ const Dashboard = ({ contract, account, userRole, setUserRole }) => {
     );
   }
 
+  // Περιεχόμενο καρτελών
   const renderTabContent = () => {
     switch (activeTab) {
       case 'add':
@@ -156,6 +159,7 @@ const Dashboard = ({ contract, account, userRole, setUserRole }) => {
     }
   };
 
+  // Διαθέσιμες καρτέλες ανά ρόλο
   const getAvailableTabs = () => {
     const baseTabs = [{ key: 'devices', label: 'View Devices' }];
     

@@ -25,7 +25,7 @@ const ProcessDevice = ({ contract, account, onDeviceProcessed }) => {
         onDeviceProcessed();
       }
     } catch (error) {
-      console.error('Error processing device:', error);
+      console.error('Σφάλμα επεξεργασίας συσκευής:', error);
       alert('Error processing device: ' + error.message);
     } finally {
       setLoading(false);
